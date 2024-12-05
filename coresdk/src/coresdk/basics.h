@@ -122,10 +122,10 @@ namespace splashkit_lib
      * 
      * @param text      The text to search
      * @param substr    The substring to find and replace
-     * @param newText   The string to replace the substring with
+     * @param newtext   The string to replace the substring with
      * @returns         The text with all occurrences of the substring replaced with the new text.
      */
-    string replace_all(const string &text, const string &substr, const string &newText);
+    string replace_all(const string &text, const string &substr, const string &newtext);
 
     /**
      * Split a string into an array of strings based on a delimiter.

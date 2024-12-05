@@ -219,7 +219,7 @@ int __sklib__is_double__string_ref(const __sklib_string text);
 int __sklib__is_integer__string_ref(const __sklib_string text);
 int __sklib__is_number__string_ref(const __sklib_string text);
 int __sklib__length_of__string_ref(const __sklib_string text);
-__sklib_string __sklib__replace_all__string_ref__string_ref__string_ref(const __sklib_string text, const __sklib_string substr, const __sklib_string newText);
+__sklib_string __sklib__replace_all__string_ref__string_ref__string_ref(const __sklib_string text, const __sklib_string substr, const __sklib_string newtext);
 __sklib_vector_string __sklib__split__string_ref__char(const __sklib_string text, char delimiter);
 __sklib_string __sklib__to_lowercase__string_ref(const __sklib_string text);
 __sklib_string __sklib__to_uppercase__string_ref(const __sklib_string text);

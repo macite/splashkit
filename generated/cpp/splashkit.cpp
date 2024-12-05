@@ -291,14 +291,14 @@ int length_of(const string &text) {
     __skadapter__free__sklib_string(__skparam__text);
     return __skadapter__to_int(__skreturn);
 }
-string replace_all(const string &text, const string &substr, const string &newText) {
+string replace_all(const string &text, const string &substr, const string &newtext) {
     const __sklib_string __skparam__text = __skadapter__to_sklib_string(text);
     const __sklib_string __skparam__substr = __skadapter__to_sklib_string(substr);
-    const __sklib_string __skparam__newText = __skadapter__to_sklib_string(newText);
-    __sklib_string __skreturn = __sklib__replace_all__string_ref__string_ref__string_ref(__skparam__text, __skparam__substr, __skparam__newText);
+    const __sklib_string __skparam__newtext = __skadapter__to_sklib_string(newtext);
+    __sklib_string __skreturn = __sklib__replace_all__string_ref__string_ref__string_ref(__skparam__text, __skparam__substr, __skparam__newtext);
     __skadapter__free__sklib_string(__skparam__text);
     __skadapter__free__sklib_string(__skparam__substr);
-    __skadapter__free__sklib_string(__skparam__newText);
+    __skadapter__free__sklib_string(__skparam__newtext);
     return __skadapter__to_string(__skreturn);
 }
 vector<string> split(const string &text, char delimiter) {

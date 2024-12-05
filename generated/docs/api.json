@@ -86995,7 +86995,7 @@
         }
       },
       {
-        "signature": "string replace_all(const string &text,const string &substr,const string &newText);",
+        "signature": "string replace_all(const string &text,const string &substr,const string &newtext);",
         "name": "replace_all",
         "method_name": null,
         "unique_global_name": "replace_all",
@@ -87038,7 +87038,7 @@
             "is_vector": false,
             "type_parameter": null
           },
-          "newText": {
+          "newtext": {
             "type": "string",
             "description": "The string to replace the substring with",
             "is_pointer": false,
@@ -87058,10 +87058,10 @@
         },
         "signatures": {
           "cpp": [
-            "string replace_all(const string &text, const string &substr, const string &newText)"
+            "string replace_all(const string &text, const string &substr, const string &newtext)"
           ],
           "python": [
-            "def replace_all(text, substr, newText):"
+            "def replace_all(text, substr, newtext):"
           ],
           "pascal": [
             "function ReplaceAll(const text: String; const substr: String; const newtext: String): String"

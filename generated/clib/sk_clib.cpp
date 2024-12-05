@@ -259,11 +259,11 @@ int __sklib__length_of__string_ref(const __sklib_string text) {
     int __skreturn = length_of(__skparam__text);
     return __sklib__to_int(__skreturn);
 }
-__sklib_string __sklib__replace_all__string_ref__string_ref__string_ref(const __sklib_string text, const __sklib_string substr, const __sklib_string newText) {
+__sklib_string __sklib__replace_all__string_ref__string_ref__string_ref(const __sklib_string text, const __sklib_string substr, const __sklib_string newtext) {
     string __skparam__text = __sklib__to_string(text);
     string __skparam__substr = __sklib__to_string(substr);
-    string __skparam__newText = __sklib__to_string(newText);
-    string __skreturn = replace_all(__skparam__text, __skparam__substr, __skparam__newText);
+    string __skparam__newtext = __sklib__to_string(newtext);
+    string __skreturn = replace_all(__skparam__text, __skparam__substr, __skparam__newtext);
     return __sklib__to_sklib_string(__skreturn);
 }
 __sklib_vector_string __sklib__split__string_ref__char(const __sklib_string text, char delimiter) {

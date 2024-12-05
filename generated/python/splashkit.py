@@ -4106,11 +4106,11 @@ def length_of ( text ):
     __skparam__text = __skadapter__to_sklib_string(text)
     __skreturn = sklib.__sklib__length_of__string_ref(__skparam__text)
     return __skadapter__to_int(__skreturn)
-def replace_all ( text, substr, newText ):
+def replace_all ( text, substr, newtext ):
     __skparam__text = __skadapter__to_sklib_string(text)
     __skparam__substr = __skadapter__to_sklib_string(substr)
-    __skparam__newText = __skadapter__to_sklib_string(newtext)
-    __skreturn = sklib.__sklib__replace_all__string_ref__string_ref__string_ref(__skparam__text, __skparam__substr, __skparam__newText)
+    __skparam__newtext = __skadapter__to_sklib_string(newtext)
+    __skreturn = sklib.__sklib__replace_all__string_ref__string_ref__string_ref(__skparam__text, __skparam__substr, __skparam__newtext)
     return __skadapter__to_string(__skreturn)
 def split ( text, delimiter ):
     __skparam__text = __skadapter__to_sklib_string(text)

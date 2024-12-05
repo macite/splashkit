@@ -4318,13 +4318,13 @@ function ReplaceAll(const text: String; const substr: String; const newtext: Str
 var
   __skparam__text: __sklib_string;
   __skparam__substr: __sklib_string;
-  __skparam__newText: __sklib_string;
+  __skparam__newtext: __sklib_string;
   __skreturn: __sklib_string;
 begin
   __skparam__text := __skadapter__to_sklib_string(text);
   __skparam__substr := __skadapter__to_sklib_string(substr);
-  __skparam__newText := __skadapter__to_sklib_string(newtext);
-  __skreturn := __sklib__replace_all__string_ref__string_ref__string_ref(__skparam__text, __skparam__substr, __skparam__newText);
+  __skparam__newtext := __skadapter__to_sklib_string(newtext);
+  __skreturn := __sklib__replace_all__string_ref__string_ref__string_ref(__skparam__text, __skparam__substr, __skparam__newtext);
   result := __skadapter__to_string(__skreturn);
 end;
 function Split(const text: String; delimiter: Char): ArrayOfString;
