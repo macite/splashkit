@@ -1376,7 +1376,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute setter x
      */
-    void sprite_set_x(sprite s, float value);
+    void sprite_set_x(sprite s, double value);
 
     /**
      * Returns the X position of the sprite.
@@ -1387,7 +1387,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute getter x
      */
-    float sprite_x(sprite s);
+    double sprite_x(sprite s);
 
     /**
      * Sets the Y position of the sprite.
@@ -1398,7 +1398,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute setter y
      */
-    void sprite_set_y(sprite s, float value);
+    void sprite_set_y(sprite s, double value);
 
     /**
      * Returns the Y position of the sprite.
@@ -1409,7 +1409,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute getter y
      */
-    float sprite_y(sprite s);
+    double sprite_y(sprite s);
 
     //---------------------------------------------------------------------------
     // sprite position
@@ -1450,7 +1450,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute setter dx
      */
-    void sprite_set_dx(sprite s, float value);
+    void sprite_set_dx(sprite s, double value);
 
     /**
      * Returns the X value of the sprite's velocity.
@@ -1461,7 +1461,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute getter dx
      */
-    float sprite_dx(sprite s);
+    double sprite_dx(sprite s);
 
     /**
      * Sets the Y value of the sprite's velocity.
@@ -1472,7 +1472,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute setter dy
      */
-    void sprite_set_dy(sprite s, float value);
+    void sprite_set_dy(sprite s, double value);
 
     /**
      * Returns the Y value of the sprite's velocity.
@@ -1483,7 +1483,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute getter dy
      */
-    float sprite_dy(sprite s);
+    double sprite_dy(sprite s);
 
     //---------------------------------------------------------------------------
     // sprite speed and heading
@@ -1498,7 +1498,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute getter speed
      */
-    float sprite_speed(sprite s);
+    double sprite_speed(sprite s);
 
     /**
      * Alters the speed of the sprite without effecting the direction.
@@ -1509,7 +1509,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute setter speed
      */
-    void sprite_set_speed(sprite s, float value);
+    void sprite_set_speed(sprite s, double value);
 
     /**
      * Returns the direction the sprite is heading in degrees.

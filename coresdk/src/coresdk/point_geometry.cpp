@@ -138,7 +138,12 @@ namespace splashkit_lib
 
     bool point_in_circle(const point_2d &pt, const circle &c)
     {
-        return point_point_distance(c.center, pt) <= abs((long long)c.radius);
+        double radius = c.radius;
+        if (c.radius < 0.0)
+        {
+            radius = -c.radius;
+        }
+        return point_point_distance(c.center, pt) <= radius;
     }
 
     bool point_in_circle(double ptx, double pty, double cx, double cy, double radius)
@@ -237,7 +242,7 @@ namespace splashkit_lib
     /**
      *  Returns the distance between two points.
      */
-    float point_point_distance(const point_2d &pt1, const point_2d &pt2)
+    double point_point_distance(const point_2d &pt1, const point_2d &pt2)
     {
         vector_2d temp = vector_point_to_point(pt1, pt2);
         return vector_magnitude(temp);

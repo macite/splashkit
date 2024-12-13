@@ -1072,7 +1072,7 @@ namespace splashkit_lib
         s->velocity = vector_add(s->velocity, value);
     }
 
-    void sprite_set_x(sprite s, float value)
+    void sprite_set_x(sprite s, double value)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1083,7 +1083,7 @@ namespace splashkit_lib
         s->position.x = value;
     }
 
-    float sprite_x(sprite s)
+    double sprite_x(sprite s)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1094,7 +1094,7 @@ namespace splashkit_lib
         return s->position.x;
     }
 
-    void sprite_set_y(sprite s, float value)
+    void sprite_set_y(sprite s, double value)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1105,7 +1105,7 @@ namespace splashkit_lib
         s->position.y = value;
     }
 
-    float sprite_y(sprite s)
+    double sprite_y(sprite s)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1141,7 +1141,7 @@ namespace splashkit_lib
         }
     }
 
-    void sprite_set_dx(sprite s, float value)
+    void sprite_set_dx(sprite s, double value)
     {
         if ( VALID_PTR(s, SPRITE_PTR) )
         {
@@ -1153,7 +1153,7 @@ namespace splashkit_lib
         }
     }
 
-    float sprite_dx(sprite s)
+    double sprite_dx(sprite s)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1167,7 +1167,7 @@ namespace splashkit_lib
 
     }
 
-    void sprite_set_dy(sprite s, float value)
+    void sprite_set_dy(sprite s, double value)
     {
         if ( VALID_PTR(s, SPRITE_PTR) )
         {
@@ -1179,7 +1179,7 @@ namespace splashkit_lib
         }
     }
 
-    float sprite_dy(sprite s)
+    double sprite_dy(sprite s)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1192,7 +1192,7 @@ namespace splashkit_lib
         }
     }
 
-    float sprite_speed(sprite s)
+    double sprite_speed(sprite s)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
             return 0;
@@ -1200,10 +1200,21 @@ namespace splashkit_lib
             return vector_magnitude(s->velocity);
     }
 
-    void sprite_set_speed(sprite s, float value)
+    void sprite_set_speed(sprite s, double value)
     {
-        if ( VALID_PTR(s, SPRITE_PTR) )
-            s->velocity = vector_multiply(unit_vector(s->velocity), value);
+        if ( INVALID_PTR(s, SPRITE_PTR) )
+        {
+            LOG(WARNING) << "Attempting to use invalid sprite";
+        }
+        if (value == 0.0)
+        {
+            s->velocity = vector_to(0.0, 0.0);
+        }
+        else if (vector_magnitude(s->velocity) == 0.0)
+        {
+            s->velocity = vector_to(1.0, 0.0);
+        }
+        s->velocity = vector_multiply(unit_vector(s->velocity), value);
     }
 
     float sprite_heading(sprite s)
@@ -1337,7 +1348,7 @@ namespace splashkit_lib
                 value = 360 + (value + abs((long long)(trunc(value / 360) * 360)));
             }
 
-            if (value > 360)
+            if (value >= 360)
             {
                 value = value - trunc(value / 360) * 360;
             }
