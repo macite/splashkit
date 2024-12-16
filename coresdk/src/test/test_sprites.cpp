@@ -16,7 +16,7 @@
 
 using namespace splashkit_lib;
 
-void run_sprite_test()
+void sprite_test()
 {
     sprite sprt, s2;
     triangle tri, init_tri;
@@ -142,4 +142,75 @@ void run_sprite_test()
     show_mouse();
     
     close_all_windows();
+}
+
+void test_sprite_ray_collision()
+{
+    window w1 = open_window("Sprite Ray Collision", 800, 600);
+    sprite s1 = create_sprite("on_med.png");
+    sprite_set_position(s1, point_at(200.0, 200.0));
+    sprite_set_rotation(s1, 45.0f);
+    sprite s2 = create_sprite("rocket_sprt.png");
+    sprite_set_position(s2, point_at(500.0, 100.0));
+    sprite s3 = create_sprite("up_pole.png");
+    sprite_set_position(s3, point_at(600.0, 300.0));
+    sprite_set_rotation(s3, 10.0f);
+    point_2d ray_origin = point_at(100, 100);
+    vector_2d ray_heading = vector_to(200, 200);
+    
+    while ( !window_close_requested(w1) ) {
+        process_events();
+        
+        clear_screen(COLOR_WHITE);
+
+        if (key_down(UP_KEY))
+            ray_origin.y -= 1.0;
+        if (key_down(DOWN_KEY))
+            ray_origin.y += 1.0;
+        if (key_down(LEFT_KEY))
+            ray_origin.x -= 1.0;
+        if (key_down(RIGHT_KEY))
+            ray_origin.x += 1.0;
+        
+        bool collision_1 = sprite_ray_collision(s1, ray_origin, ray_heading);
+        bool collision_2 = sprite_ray_collision(s2, ray_origin, ray_heading);
+        bool collision_3 = sprite_ray_collision(s3, ray_origin, ray_heading);
+
+        draw_sprite(s1);
+        if (collision_1)
+        {
+            fill_circle(COLOR_RED, circle_at(sprite_collision_circle(s1).center, 30.0));
+        }
+
+        draw_sprite(s2);
+        if (collision_2)
+        {
+            fill_circle(COLOR_RED, circle_at(sprite_collision_circle(s2).center, 8.0));
+        }
+
+        draw_sprite(s3);
+        if (collision_3)
+        {
+            fill_circle(COLOR_RED, circle_at(sprite_collision_circle(s3).center, 30.0));
+        }
+
+        ray_heading = vector_point_to_point(ray_origin, mouse_position());
+        vector_2d normal_heading = unit_vector(ray_heading);
+        draw_line(COLOR_BLACK, ray_origin, point_offset_by(ray_origin, vector_multiply(normal_heading, 800.0)));
+
+        circle mouse_circle = circle_at(mouse_position(), 3.0);
+        draw_circle(COLOR_GREEN, mouse_circle);
+
+        circle ray_origin_circle = circle_at(ray_origin, 3.0);
+        draw_circle(COLOR_BLUE, ray_origin_circle);
+        
+        refresh_screen();
+    }
+    close_window(w1);
+}
+
+void run_sprite_test()
+{
+    sprite_test();
+    test_sprite_ray_collision();
 }

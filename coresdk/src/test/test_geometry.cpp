@@ -239,10 +239,77 @@ void test_triangle()
     close_window(w1);
 }
 
+void test_bitmap_ray_collision()
+{
+    window w1 = open_window("Bitmap Ray Collision", 800, 600);
+    bitmap bmp_1 = load_bitmap("on_med", "on_med.png");
+    point_2d bmp_1_position = point_at(300.0, 300.0);
+    point_2d bmp_1_center = point_offset_by(bmp_1_position, vector_to(bitmap_center(bmp_1)));
+    bitmap bmp_2 = load_bitmap("rocket_sprt", "rocket_sprt.png");
+    point_2d bmp_2_position = point_at(500.0, 300.0);
+    point_2d bmp_2_center = point_offset_by(bmp_2_position, vector_to(bitmap_center(bmp_2)));
+    bitmap bmp_3 = load_bitmap("up_pole", "up_pole.png");
+    point_2d bmp_3_position = point_at(700.0, 300.0);
+    point_2d bmp_3_center = point_offset_by(bmp_3_position, vector_to(bitmap_center(bmp_3)));
+    point_2d ray_origin = point_at(100, 100);
+    vector_2d ray_heading = vector_to(200, 200);
+    
+    while ( !window_close_requested(w1) ) {
+        process_events();
+        
+        clear_screen(COLOR_WHITE);
+
+        if (key_down(UP_KEY))
+            ray_origin.y -= 1.0;
+        if (key_down(DOWN_KEY))
+            ray_origin.y += 1.0;
+        if (key_down(LEFT_KEY))
+            ray_origin.x -= 1.0;
+        if (key_down(RIGHT_KEY))
+            ray_origin.x += 1.0;
+        
+        bool collision_1 = bitmap_ray_collision(bmp_1, 0, bmp_1_position, ray_origin, ray_heading);
+        bool collision_2 = bitmap_ray_collision(bmp_2, 0, bmp_2_position, ray_origin, ray_heading);
+        bool collision_3 = bitmap_ray_collision(bmp_3, 0, bmp_3_position, ray_origin, ray_heading);
+
+        draw_bitmap(bmp_1, bmp_1_position.x, bmp_1_position.y);
+        if (collision_1)
+        {
+            fill_circle(COLOR_RED, circle_at(bmp_1_center, 30.0));
+        }
+
+        draw_bitmap(bmp_2, bmp_2_position.x, bmp_2_position.y);
+        if (collision_2)
+        {
+            fill_circle(COLOR_RED, circle_at(bmp_2_center, 8.0));
+        }
+
+        draw_bitmap(bmp_3, bmp_3_position.x, bmp_3_position.y);
+        if (collision_3)
+        {
+            fill_circle(COLOR_RED, circle_at(bmp_3_center, 30.0));
+        }
+
+        ray_heading = vector_point_to_point(ray_origin, mouse_position());
+        vector_2d normal_heading = unit_vector(ray_heading);
+        draw_line(COLOR_BLACK, ray_origin, point_offset_by(ray_origin, vector_multiply(normal_heading, 800.0)));
+
+        circle mouse_circle = circle_at(mouse_position(), 3.0);
+        draw_circle(COLOR_GREEN, mouse_circle);
+
+        circle ray_origin_circle = circle_at(ray_origin, 3.0);
+        draw_circle(COLOR_BLUE, ray_origin_circle);
+        
+        refresh_screen();
+    }
+    close_window(w1);
+}
+
 void run_geometry_test()
 {
     test_rectangle();
     test_points();
     test_lines();
     test_triangle();
+    test_bitmap_ray_collision();
 }

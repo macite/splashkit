@@ -17,6 +17,8 @@
 #include "graphics.h"
 #include "utils.h"
 
+constexpr double RAY_QUAD_LINE_THICKNESS = 1.0;
+
 using std::function;
 
 namespace splashkit_lib
@@ -274,6 +276,65 @@ namespace splashkit_lib
         return bitmap_circle_collision(bmp, cell, translation_matrix(x, y), circ);
     }
 
+    bool bitmap_quad_collision(bitmap bmp, int cell, const matrix_2d &translation, const quad& q)
+    {
+        if (INVALID_PTR(bmp, BITMAP_PTR))
+        {
+            return false;
+        }
+        
+        quad q1 = quad_from(bitmap_cell_rectangle(bmp), translation);
+        rectangle rect = rectangle_around(q);
+        
+        if ( not quads_intersect(q1, q) ) return false;
+        
+        return _step_through_pixels(rect.width, rect.height, translation_matrix(rect.x, rect.y), bmp->cell_w, bmp->cell_h, translation, [&] (int ax, int ay, int bx, int by)
+                                    {
+                                        return pixel_drawn_at_point(bmp, cell, bx, by) && point_in_quad(point_at(rect.x + ax, rect.y + ay), q);
+                                    });
+    }
+
+    bool bitmap_ray_collision(bitmap bmp, int cell, const matrix_2d& translation, const point_2d& origin, const vector_2d& heading)
+    {
+        if (INVALID_PTR(bmp, BITMAP_PTR))
+        {
+            return false;
+        }
+        
+        point_2d bmp_position = matrix_multiply(translation, point_at(0.0, 0.0));
+        point_2d bmp_center = point_offset_by(bmp_position, vector_to(bitmap_center(bmp)));
+        circle bmp_bounding_circle = bitmap_bounding_circle(bmp, bmp_center);
+
+        vector_2d unit_ray_heading = unit_vector(heading);
+
+        // get point which will allow segment to fully pass through the bitmap
+        double distance_to_center = vector_magnitude(vector_point_to_point(origin, bmp_center));
+        point_2d ray_end = point_offset_by(origin, vector_multiply(unit_ray_heading, distance_to_center + bmp_bounding_circle.radius));
+
+        quad ray_quad = quad_from(origin, ray_end, RAY_QUAD_LINE_THICKNESS);
+        return bitmap_quad_collision(bmp, cell, translation, ray_quad);
+    }
+
+    bool bitmap_ray_collision(bitmap bmp, int cell, const point_2d& pt, const point_2d& origin, const vector_2d& heading)
+    {
+        return bitmap_ray_collision(bmp, cell, translation_matrix(pt), origin, heading);
+    }
+
+    bool bitmap_ray_collision(bitmap bmp, int cell, double x, double y, const point_2d& origin, const vector_2d& heading)
+    {
+        return bitmap_ray_collision(bmp, cell, translation_matrix(x, y), origin, heading);
+    }
+
+    bool bitmap_ray_collision(bitmap bmp, double x, double y, const point_2d& origin, const vector_2d& heading)
+    {
+        return bitmap_ray_collision(bmp, 0, translation_matrix(x, y), origin, heading);
+    }
+
+    bool bitmap_ray_collision(bitmap bmp, const point_2d& pt, const point_2d& origin, const vector_2d& heading)
+    {
+        return bitmap_ray_collision(bmp, 0, translation_matrix(pt), origin, heading);
+    }
+
     bool sprite_bitmap_collision(sprite s, bitmap bmp, int cell, double x, double y)
     {
         if (!rectangles_intersect(sprite_collision_rectangle(s), bitmap_cell_rectangle(bmp, point_at(x, y))))
@@ -328,6 +389,11 @@ namespace splashkit_lib
         }
         
         return bitmap_rectangle_collision(sprite_collision_bitmap(s), sprite_current_cell(s), sprite_location_matrix(s), rect);
+    }
+
+    bool sprite_ray_collision(sprite s, const point_2d& origin, const vector_2d& heading)
+    {
+        return bitmap_ray_collision(sprite_collision_bitmap(s), sprite_current_cell(s), sprite_location_matrix(s), origin, heading);
     }
     
     bool sprite_collision(sprite s1, sprite s2)

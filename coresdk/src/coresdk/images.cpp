@@ -388,7 +388,7 @@ namespace splashkit_lib
             return circle_at(0, 0, 0);
         }
 
-        return circle_at(pt, MAX(bmp->cell_w, bmp->cell_h) / 2.0f * scale);
+        return circle_at(pt, sqrt(pow(bmp->cell_w / 2.0, 2.0) + pow(bmp->cell_h / 2.0, 2.0)) * scale);
     }
 
     circle bitmap_cell_circle(bitmap bmp, const point_2d pt)
@@ -408,7 +408,7 @@ namespace splashkit_lib
             return circle_at(0,0,0);
         }
 
-        return circle_at(pt, MAX(bmp->image.surface.width, bmp->image.surface.height));
+        return circle_at(pt, sqrt(pow(bmp->image.surface.width / 2.0, 2.0) + pow(bmp->image.surface.height / 2.0, 2.0)));
     }
 
     int bitmap_cell_columns(bitmap bmp)

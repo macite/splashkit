@@ -59,6 +59,21 @@ namespace splashkit_lib
         return result;
     }
 
+    quad quad_from(const point_2d& line_origin, const point_2d& line_end, double width)
+    {
+        vector_2d heading = vector_point_to_point(line_origin, line_end);
+        vector_2d normal = vector_normal(heading);
+        vector_2d offset = vector_multiply(normal, width / 2.0);
+
+        quad result;
+        result.points[0] = point_offset_by(line_origin, offset);
+        result.points[1] = point_offset_by(line_end, offset);
+        result.points[2] = point_offset_by(line_origin, vector_invert(offset));
+        result.points[3] = point_offset_by(line_end, vector_invert(offset));
+
+        return result;
+    }
+
     void set_quad_point(quad &q, int idx, const point_2d &value)
     {
         if (idx < 0 || idx > 3)
