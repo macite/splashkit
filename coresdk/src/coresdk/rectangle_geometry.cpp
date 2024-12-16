@@ -223,4 +223,56 @@ namespace splashkit_lib
 
         return result;
     }
+
+    bool rectangle_ray_intersection(const point_2d &origin, const vector_2d &heading, const rectangle &rect)
+    {
+        point_2d hit_point;
+        double hit_distance;
+        return rectangle_ray_intersection(origin, heading, rect, hit_point, hit_distance);
+    }
+
+    bool rectangle_ray_intersection(const point_2d &origin, const vector_2d &heading, const rectangle &rect, point_2d &hit_point, double &hit_distance)
+    {
+        vector_2d unit_heading = unit_vector(heading);
+        
+        // check whether unit heading is a zero vector
+        if (vector_magnitude_squared(unit_heading) < __DBL_EPSILON__)
+        {
+            return false;
+        }
+        
+        if (point_in_rectangle(origin, rect))
+        {
+            hit_point = origin;
+            hit_distance = 0.0;
+            return true;
+        }
+
+        // Compute the inverse of the ray direction (for faster calculations)
+        vector_2d inv_dir = vector_to(1.0 / unit_heading.x, 1.0 / unit_heading.y);
+
+        // Calculate entry and exit distances for the rectangle's x and y boundaries
+        double entry_distance_x = (rect.x - origin.x) * inv_dir.x;
+        double exit_distance_x = (rect.x + rect.width - origin.x) * inv_dir.x;
+
+        double entry_distance_y = (rect.y - origin.y) * inv_dir.y;
+        double exit_distance_y = (rect.y + rect.height - origin.y) * inv_dir.y;
+
+        // Determine the nearest entry point and the farthest exit point
+        double min_intersection_distance = std::max(std::min(entry_distance_x, exit_distance_x), std::min(entry_distance_y, exit_distance_y));
+        double max_intersection_distance = std::min(std::max(entry_distance_x, exit_distance_x), std::max(entry_distance_y, exit_distance_y));
+
+        // If the ray misses the rectangle or the intersection is behind the ray's origin
+        if (min_intersection_distance > max_intersection_distance || max_intersection_distance < 0.0)
+        {
+            return false;
+        }
+
+        // Compute the point of intersection
+        hit_distance = min_intersection_distance;
+        vector_2d hit_vector = vector_multiply(unit_heading, min_intersection_distance);
+        hit_point = point_at(origin.x + hit_vector.x, origin.y + hit_vector.y);
+
+        return true;
+    }
 }

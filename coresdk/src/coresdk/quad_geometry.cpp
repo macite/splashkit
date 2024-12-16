@@ -77,6 +77,48 @@ namespace splashkit_lib
         return result;
     }
 
+    bool quad_ray_intersection(const point_2d &origin, const vector_2d &heading, const quad &q)
+    {
+        point_2d hit_point;
+        double hit_distance;
+        return quad_ray_intersection(origin, heading, q, hit_point, hit_distance);
+    }
+
+    bool quad_ray_intersection(const point_2d &origin, const vector_2d &heading, const quad &q, point_2d &hit_point, double &hit_distance)
+    {
+        vector_2d unit_heading = unit_vector(heading);
+        
+        // check whether unit heading is a zero vector
+        if (vector_magnitude_squared(unit_heading) < __DBL_EPSILON__)
+        {
+            return false;
+        }
+        
+        vector<triangle> tris = triangles_from(q);
+
+        bool result = false;
+        double closest_distance = __DBL_MAX__;
+
+        for (size_t i = 0; i < tris.size(); i++)
+        {
+            point_2d p;
+            double d;
+            if (triangle_ray_intersection(origin, unit_heading, tris[i], p, d))
+            {
+                double distance_to_intersection = vector_magnitude(vector_point_to_point(origin, p));
+                if (distance_to_intersection < closest_distance)
+                {
+                    closest_distance = distance_to_intersection;
+                    hit_point = p;
+                    hit_distance = d;
+                    result = true;
+                }
+            }
+        }
+
+        return result;
+    }
+
     bool quads_intersect(const quad &q1, const quad &q2)
     {
         vector<triangle> q1_triangles = triangles_from(q1);

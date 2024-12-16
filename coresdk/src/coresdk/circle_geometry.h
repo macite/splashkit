@@ -151,6 +151,35 @@ namespace splashkit_lib
     float ray_circle_intersect_distance(const point_2d &ray_origin, const vector_2d &ray_heading, const circle &c);
 
     /**
+     * Detects if a ray intersects a circle.
+     * 
+     * @param origin        The starting point of the ray
+     * @param heading       The direction of the ray as a vector
+     * @param circ          The circle to check for intersection
+     * @returns             True if the ray intersects the circle, false otherwise
+     */
+    bool circle_ray_intersection(const point_2d &origin, const vector_2d &heading, const circle &circ);
+
+    /**
+     * Detects if a ray intersects a circle. If an intersection is found, the
+     * `hit_point` and `hit_distance` are set to the point of intersection and the
+     * distance from the ray's origin to the intersection point. If the ray's `origin`
+     * is contained within the circle, `hit_point` is set to the `origin` and `hit_distance`
+     * is set to 0. If no intersection is found, `hit_point` and `hit_distance` are not modified.
+     * 
+     * @param origin        The starting point of the ray
+     * @param heading       The direction of the ray as a vector
+     * @param circ          The circle to check for intersection
+     * @param hit_point     The point to set to where the ray intersects the circle
+     * @param hit_distance  The double to set to the distance from the ray's origin to
+     *                      the intersection point
+     * @returns             True if the ray intersects the circle, false otherwise
+     * 
+     * @attribute suffix    with_hit_point_and_distance
+     */
+    bool circle_ray_intersection(const point_2d &origin, const vector_2d &heading, const circle &circ, point_2d &hit_point, double &hit_distance);
+
+    /**
      *  Returns the circle radius.
      *
      * @param  c The circle
