@@ -164,27 +164,27 @@ namespace splashkit_lib
         return (abs((long long)intersect.width) + abs((long long)intersect.height)) != 0;
     }
 
-    float rectangle_top(const rectangle &rect)
+    double rectangle_top(const rectangle &rect)
     {
-        if ( rect.height >= 0) return rect.y;
+        if ( rect.height >= 0.0) return rect.y;
         else return rect.y + rect.height;
     }
     
-    float rectangle_bottom(const rectangle &rect)
+    double rectangle_bottom(const rectangle &rect)
     {
-        if ( rect.height >= 0) return rect.y + rect.height;
+        if ( rect.height >= 0.0) return rect.y + rect.height;
         else return rect.y;
     }
     
-    float rectangle_left(const rectangle &rect)
+    double rectangle_left(const rectangle &rect)
     {
-        if ( rect.width >= 0) return rect.x;
+        if ( rect.width >= 0.0) return rect.x;
         else return rect.x + rect.width;
     }
     
-    float rectangle_right(const rectangle &rect)
+    double rectangle_right(const rectangle &rect)
     {
-        if ( rect.width >= 0) return rect.x + rect.width;
+        if ( rect.width >= 0.0) return rect.x + rect.width;
         else return rect.x;
     }
 

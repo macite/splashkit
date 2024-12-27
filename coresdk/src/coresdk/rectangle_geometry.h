@@ -132,7 +132,7 @@ namespace splashkit_lib
      * @param  rect The rectangle.
      * @return      Its distance from the top of the screen.
      */
-    float rectangle_top(const rectangle &rect);
+    double rectangle_top(const rectangle &rect);
 
     /**
      * The location of the bottom of the rectangle.
@@ -141,7 +141,7 @@ namespace splashkit_lib
      * @return      The distance from the top of the screen to the bottom of
      *              the rectangle.
      */
-    float rectangle_bottom(const rectangle &rect);
+    double rectangle_bottom(const rectangle &rect);
 
     /**
      * The location of the left edge of the rectangle.
@@ -150,7 +150,7 @@ namespace splashkit_lib
      * @return      The distance from the left of the screen to the left side of
      *              the rectangle.
      */
-    float rectangle_left(const rectangle &rect);
+    double rectangle_left(const rectangle &rect);
 
     /**
      * The location of the right edge of the rectangle.
@@ -159,7 +159,7 @@ namespace splashkit_lib
      * @return      The distance from the left of the screen to the right side
      *              of the rectangle.
      */
-    float rectangle_right(const rectangle &rect);
+    double rectangle_right(const rectangle &rect);
 
     /**
      *  Get a text representation of the passed in rectangle.

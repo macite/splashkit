@@ -77,8 +77,8 @@ namespace splashkit_lib
     {
         vector_2d v0, v1, v2;
         vector_2d a, b, c, p;
-        float dot00, dot01, dot02, dot11, dot12;
-        float inv_denom, u, v;
+        double dot00, dot01, dot02, dot11, dot12;
+        double inv_denom, u, v;
 
         //Convert Points to vectors
         p = vector_to(pt);
@@ -99,15 +99,15 @@ namespace splashkit_lib
         dot12 = dot_product(v1, v2);
 
         // Compute barycentric coordinates
-        if (dot00 * dot11 - dot01 * dot01 == 0)
+        if (dot00 * dot11 - dot01 * dot01 == 0.0)
             return false;
 
-        inv_denom = 1 / (dot00 * dot11 - dot01 * dot01);
+        inv_denom = 1.0 / (dot00 * dot11 - dot01 * dot01);
         u = (dot11 * dot02 - dot01 * dot12) * inv_denom;
         v = (dot00 * dot12 - dot01 * dot02) * inv_denom;
 
         // Check if point is in triangle
-        return ((u > 0) and (v > 0) and (u + v < 1));
+        return ((u > 0.0) and (v > 0.0) and (u + v < 1.0));
     }
 
     bool point_in_rectangle(const point_2d &pt, const rectangle &rect)

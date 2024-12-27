@@ -239,10 +239,95 @@ void test_triangle()
     close_window(w1);
 }
 
+void test_tangent_points()
+{
+    circle c1 = circle_at(100, 100, 50);
+    point_2d pp = point_at(100, 25);
+    point_2d p11, p22;
+    tangent_points(pp, c1, p11, p22);
+    cout << "Tangent points for circle at 100,100,50 from 100,25 are " << point_to_string(p11) << " and " << point_to_string(p22) << endl;
+    
+    circle c = circle_at(300.0, 300.0, 150.0);
+    point_2d p, p1, p2;
+    tangent_points(p, c, p1, p2);
+
+    window w1 = open_window("Tangent Point Tests", 600, 800);
+    while ( !window_close_requested(w1) ) {
+        process_events();
+        
+        if (key_down(UP_KEY))
+            c.radius += 0.05;
+
+        if (key_down(DOWN_KEY))
+            c.radius -= 0.05;
+
+        clear_screen(COLOR_WHEAT);
+
+        p = mouse_position();
+
+        if(tangent_points(p, c, p1, p2))
+        {
+            draw_circle(COLOR_RED, c.center.x, c.center.y, 5);
+            draw_circle(COLOR_RED, p1.x, p1.y, 5);
+            draw_circle(COLOR_RED, p2.x, p2.y, 5);
+            draw_line(COLOR_RED, line_from(p1, c.center));
+            draw_line(COLOR_RED, line_from(p2, c.center));
+            draw_line(COLOR_RED, line_from(p, p1));
+            draw_line(COLOR_RED, line_from(p, p2));
+        }
+        draw_circle(COLOR_RED, c);
+
+        refresh_screen();
+    }
+    close_window(w1);
+}
+
+void test_triangle_rectangle_intersect()
+{
+    auto t1 = triangle_from(110, 110, 120, 150, 170, 190);
+    auto t2 = triangle_from(200, 200, 200, 500, 500, 500);
+    auto t3 = triangle_from(300, 20, 280, 240, 550, 60);
+    auto t4 = triangle_from(150, 700, 265, 600, 510, 610);
+
+    window w1 = open_window("Triangle Tests", 600, 800);
+    while ( !window_close_requested(w1) ) {
+        process_events();
+
+        clear_screen(COLOR_WHEAT);
+
+        point_2d mouse = mouse_position();
+        auto r1 = rectangle_from(mouse.x - 25, mouse.y - 25, 50, 50);
+
+        if (triangle_rectangle_intersect(t1, r1))
+            fill_triangle(COLOR_TAN, t1);
+
+        if (triangle_rectangle_intersect(t2, r1))
+            fill_triangle(COLOR_TAN, t2);
+
+        if (triangle_rectangle_intersect(t3, r1))
+            fill_triangle(COLOR_TAN, t3);
+
+        if (triangle_rectangle_intersect(t4, r1))
+            fill_triangle(COLOR_TAN, t4);
+
+        draw_triangle(COLOR_RED, t1);
+        draw_triangle(COLOR_RED, t2);
+        draw_triangle(COLOR_RED, t3);
+        draw_triangle(COLOR_RED, t4);
+
+        draw_rectangle(COLOR_RED, r1);
+
+        refresh_screen();
+    }
+    close_window(w1);
+}
+
 void run_geometry_test()
 {
     test_rectangle();
     test_points();
     test_lines();
     test_triangle();
+    test_tangent_points();
+    test_triangle_rectangle_intersect();
 }

@@ -175,11 +175,15 @@ namespace splashkit_lib
     float circle_y(const circle &c);
 
     /**
-     * The closest point on the circle to the given point.
+     * Returns the closest point on a circle's circumference to
+     * a given point. If the point is equal to the center of the circle,
+     * the center point is returned.
      *
      * @param  from_pt The point to test from
-     * @param  c       The circle you want to get a point on its circumference
-     * @return         The point on c that is closest to the from point
+     * @param  c       The circle
+     * @return         The point on `c`'s circumference that is closest to
+     *                      `from_point`, or the center of the circle if the
+     *                      point equals `c`'s center. 
      */
     point_2d closest_point_on_circle(const point_2d &from_pt, const circle &c);
 
@@ -193,11 +197,11 @@ namespace splashkit_lib
     point_2d closest_point_on_line_from_circle(const circle &c, const line &l);
 
     /**
-     * Returns the closest point on a rectangle to a circle.
+     * Returns the closest point on a rectangle's perimeter to a circle.
      *
      * @param  c The circle
      * @param  rect The rectangle
-     * @return   The point that is closest to `c` on `rect`
+     * @return   The point that is closest to `c` on `rect`'s perimeter
      */
     point_2d closest_point_on_rect_from_circle(const circle &c, const rectangle &rect);
 

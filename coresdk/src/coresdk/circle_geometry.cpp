@@ -172,7 +172,7 @@ namespace splashkit_lib
 
     bool tangent_points(const point_2d &from_pt, const circle &c, point_2d &p1, point_2d &p2)
     {
-        vector_2d pm_c = vector_point_to_point(from_pt, c.center);
+        vector_2d pm_c = vector_point_to_point(c.center, from_pt);
 
         double sqr_len = vector_magnitude_squared(pm_c);
         double r_sqr = c.radius * c.radius;

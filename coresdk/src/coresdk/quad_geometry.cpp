@@ -61,7 +61,7 @@ namespace splashkit_lib
 
     void set_quad_point(quad &q, int idx, const point_2d &value)
     {
-        if (idx < 0 || idx > 3)
+        if (idx >= 0 && idx <= 3)
         {
             q.points[idx] = value;
         }
