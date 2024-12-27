@@ -223,4 +223,15 @@ namespace splashkit_lib
 
         return result;
     }
+
+    bool rectangle_circle_intersect(const rectangle &rect, const circle &c)
+    {
+        if (point_in_rectangle(c.center, rect))
+        {
+            return true;
+        }
+        
+        point_2d closest = closest_point_on_rect_from_circle(c, rect);
+        return point_in_circle(closest, c);
+    }
 }

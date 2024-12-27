@@ -173,6 +173,12 @@ namespace splashkit_lib
 
     bool line_intersects_rect(const line &l, const rectangle &rect)
     {
+        // if the line is completely within the rectangle, then it intersects
+        if (point_in_rectangle(l.start_point, rect) && point_in_rectangle(l.end_point, rect))
+        {
+            return true;
+        }
+        
         return line_intersects_lines(l, lines_from(rect));
     }
 

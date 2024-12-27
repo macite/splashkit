@@ -178,5 +178,14 @@ namespace splashkit_lib
      */
     rectangle inset_rectangle(const rectangle &rect, float inset_amount);
 
+    /**
+     * Detects if a rectangle intersects with a circle.
+     *
+     * @param  rect The rectangle to test
+     * @param  c    The circle to test
+     * @return      True if the rectangle and circle intersect, false otherwise
+     */
+    bool rectangle_circle_intersect(const rectangle &rect, const circle &c);
+
 }
 #endif /* rectangle_geometry_H */

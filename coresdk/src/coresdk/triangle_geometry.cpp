@@ -102,6 +102,18 @@ namespace splashkit_lib
             or point_in_triangle(point_at(r, b), tri);
     }
 
+    bool triangle_quad_intersect(const triangle &tri, const quad &q)
+    {
+        vector<triangle> q_tris = triangles_from(q);
+
+        for (size_t i = 0; i < q_tris.size(); i++)
+        {
+            if (triangles_intersect(tri, q_tris[i])) return true;
+        }
+
+        return false;
+    }
+
     bool triangles_intersect(const triangle &t1, const triangle &t2)
     {
         // Test if any of the points lie within the other triangle.

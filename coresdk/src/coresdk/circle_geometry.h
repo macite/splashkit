@@ -213,5 +213,13 @@ namespace splashkit_lib
      */
     bool tangent_points(const point_2d &from_pt, const circle &c, point_2d &p1, point_2d &p2);
 
+    /**
+     * Detects if a circle intersects with a quad.
+     *
+     * @param  c  The circle to test
+     * @param  q  The quad to test
+     * @return    True if the circle and quad intersect, false otherwise
+     */
+    bool circle_quad_intersect(const circle &c, const quad &q);
 }
 #endif /* circle_geometry_hpp */

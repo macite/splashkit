@@ -192,4 +192,19 @@ namespace splashkit_lib
 
         return true;
     }
+
+    bool circle_quad_intersect(const circle &c, const quad &q)
+    {
+        vector<triangle> q_tris = triangles_from(q);
+        
+        for (size_t i = 0; i < q_tris.size(); i++)
+        {
+            if (circle_triangle_intersect(c, q_tris[i]))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
